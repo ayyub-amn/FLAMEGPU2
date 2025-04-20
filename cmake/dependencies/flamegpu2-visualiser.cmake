@@ -11,8 +11,8 @@ if(POLICY CMP0169)
 endif()
 
 # Set the visualiser repo and tag to use unless overridden by the user.
-set(DEFAULT_FLAMEGPU_VISUALISATION_GIT_VERSION "flamegpu-2.0.0-rc.2")
-set(DEFAULT_FLAMEGPU_VISUALISATION_REPOSITORY "https://github.com/FLAMEGPU/FLAMEGPU2-visualiser.git")
+set(DEFAULT_FLAMEGPU_VISUALISATION_GIT_VERSION "master")
+set(DEFAULT_FLAMEGPU_VISUALISATION_REPOSITORY "https://github.com/ayyub-amn/FLAMEGPU2-visualiser.git")
 
 # Set a VISUSLAITION_ROOT cache entry so it is available in the GUI to override the location if required
 if(NOT DEFINED CACHE{FLAMEGPU_VISUALISATION_ROOT})
@@ -21,7 +21,7 @@ endif()
 
 # Detect if the user provided the visualisation root or ot, by comparing to the fetch content source dir.
 if (FLAMEGPU_VISUALISATION_ROOT)
-    # @todo - we should make the visualisation package find_package() compatible, and check it exists if FLAMEGPU_VISUALISATION_ROOT is set. 
+    # @todo - we should make the visualisation package find_package() compatible, and check it exists if FLAMEGPU_VISUALISATION_ROOT is set.
     # Look for the main visualisation header to get the abs path, but only look relative to the hints/paths, no cmake defaults (for now)
     set(FLAMEGPU_VISUALISATION_INCLUDE_HEADER_FILE include/flamegpu/visualiser/FLAMEGPU_Visualisation.h)
     find_path(FLAMEGPU_VISUALISATION_ROOT_ABS
@@ -40,7 +40,7 @@ if (FLAMEGPU_VISUALISATION_ROOT)
         # update the value to the non abs version, in local and parent scope.
         set(FLAMEGPU_VISUALISATION_ROOT "${FLAMEGPU_VISUALISATION_ROOT_ABS}")
         set(FLAMEGPU_VISUALISATION_ROOT "${FLAMEGPU_VISUALISATION_ROOT_ABS}" PARENT_SCOPE)
-        # And set up the visualisation build 
+        # And set up the visualisation build
         add_subdirectory(${FLAMEGPU_VISUALISATION_ROOT_ABS} ${CMAKE_CURRENT_BINARY_DIR}/_deps/flamegpu_visualiser-build EXCLUDE_FROM_ALL)
         # Set the cahce var too, to ensure it appears in the GUI.
         set(FLAMEGPU_VISUALISATION_ROOT "${FLAMEGPU_VISUALISATION_ROOT}" CACHE STRING "Path to local copy of the FLAMEGPU2-visualiser repository, rather than CMake-based fetching")
@@ -83,8 +83,8 @@ mark_as_advanced(FETCHCONTENT_SOURCE_DIR_FLAMEGPU_VISUALISER)
 mark_as_advanced(FETCHCONTENT_QUIET)
 mark_as_advanced(FETCHCONTENT_BASE_DIR)
 mark_as_advanced(FETCHCONTENT_FULLY_DISCONNECTED)
-mark_as_advanced(FETCHCONTENT_UPDATES_DISCONNECTED) 
-mark_as_advanced(FETCHCONTENT_UPDATES_DISCONNECTED_FLAMEGPU_VISUALISER) 
+mark_as_advanced(FETCHCONTENT_UPDATES_DISCONNECTED)
+mark_as_advanced(FETCHCONTENT_UPDATES_DISCONNECTED_FLAMEGPU_VISUALISER)
 mark_as_advanced(FLAMEGPU_VISUALISATION_ROOT_ABS)
 # Uneset some variables to avoid scope leaking.
 unset(DEFAULT_FLAMEGPU_VISUALISATION_GIT_VERSION)
